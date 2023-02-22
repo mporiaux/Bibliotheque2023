@@ -1,6 +1,5 @@
-package bibliotheque;
+package bibliotheque.metier;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -68,5 +67,33 @@ public class Auteur {
                 ", prenom='" + prenom + '\'' +
                 ", nationalite='" + nationalite + '\'' +
                 '}';
+    }
+
+    public void addOuvrage(Ouvrage o ){
+        louvrage.add(o);
+        o.getLauteurs().add(this);
+    }
+
+    public void remove(Ouvrage o){
+        louvrage.remove(o);
+        o.getLauteurs().remove(this);
+    }
+
+    public List<Ouvrage> listerOuvrages(){
+        //TODO lister ouvrages
+        return null;
+    }
+
+    public List<Ouvrage> listerOuvrages(TypeOuvrage to){
+        //TODO lister ouvrages d'un type
+        return null;
+    }
+    public List<Livre> listerLivres(TypeLivre tl){
+        //TODO lister livres d'un type
+        return null;
+    }
+    public List<Ouvrage> listerOuvrages(String genre){
+        //TODO lister ouvrages d'un genre
+        return null;
     }
 }

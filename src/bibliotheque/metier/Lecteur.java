@@ -1,4 +1,4 @@
-package bibliotheque;
+package bibliotheque.metier;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -113,5 +113,15 @@ public class Lecteur {
     @Override
     public int hashCode() {
         return Objects.hash(numlecteur);
+    }
+
+    public List<Exemplaire> listerExemplairesEnLocation(){
+        //TODO lister exemplaires en location lecteur
+        return null;
+    }
+
+    public List<Exemplaire> listerExemplairesEnLoues(){
+        //TODO lister exemplaires loues lecteur
+        return null;
     }
 }

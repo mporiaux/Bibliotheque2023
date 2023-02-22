@@ -1,4 +1,4 @@
-package bibliotheque;
+package bibliotheque.metier;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -71,7 +71,11 @@ public class DVD extends Ouvrage{
     public int hashCode() {
         return Objects.hash(code);
     }
-
+    @Override
+    public double amendeRetard(int njours) {
+        //TODO amendeRetard DVD
+        return 0;
+    }
     @Override
     public String toString() {
         return super.toString()+"DVD{" +

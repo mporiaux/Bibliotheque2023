@@ -1,4 +1,4 @@
-package bibliotheque;
+package bibliotheque.metier;
 
 import java.time.LocalDate;
 import java.util.Objects;
@@ -61,6 +61,12 @@ public class Livre extends Ouvrage{
     @Override
     public int hashCode() {
         return Objects.hash(isbn);
+    }
+
+    @Override
+    public double amendeRetard(int njours) {
+        //TODO amendeRetard livre
+        return 0;
     }
 
     @Override

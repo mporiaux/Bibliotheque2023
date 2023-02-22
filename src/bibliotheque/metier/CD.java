@@ -1,4 +1,4 @@
-package bibliotheque;
+package bibliotheque.metier;
 
 import java.time.LocalDate;
 import java.util.Objects;
@@ -51,7 +51,11 @@ public class CD extends Ouvrage{
     public int hashCode() {
         return Objects.hash(code);
     }
-
+    @Override
+    public double amendeRetard(int njours) {
+        //TODO amendeRetard CD
+        return 0;
+    }
     @Override
     public String toString() {
         return super.toString()+"CD{" +
