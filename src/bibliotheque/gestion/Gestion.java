@@ -1,8 +1,10 @@
 package bibliotheque.gestion;
 
 import bibliotheque.metier.*;
+import bibliotheque.utilitaires.Utilitaire;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -10,13 +12,13 @@ import java.util.Scanner;
 
 public class Gestion {
     Scanner sc = new Scanner(System.in);
-
-    private static List<Auteur> laut = new ArrayList<>();
-    private static List<Lecteur> llect = new ArrayList<>();
-    private static List<Ouvrage> louv= new ArrayList<>();
-    private static List<Exemplaire> lex = new ArrayList<>();
-    private static List<Rayon> lrayon= new ArrayList<>();
-    private static List<Location> lloc = new ArrayList<>();
+//on a ôté static pour les listes qui n'est plus nécessaire
+    private List<Auteur> laut = new ArrayList<>();
+    private List<Lecteur> llect = new ArrayList<>();
+    private List<Ouvrage> louv= new ArrayList<>();
+    private List<Exemplaire> lex = new ArrayList<>();
+    private List<Rayon> lrayon= new ArrayList<>();
+    private List<Location> lloc = new ArrayList<>();
 
 
     public void populate(){
@@ -31,7 +33,7 @@ public class Gestion {
         a = new Auteur("Spielberg","Steven","USA");
         laut.add(a);
 
-        DVD d = new DVD("AI",12,LocalDate.of(2000,10,1),2.50,"anglais","SF",4578l,"120 min",(byte)2);
+        DVD d = new DVD("AI",12,LocalDate.of(2000,10,1),2.50,"anglais","SF",4578l,LocalTime.of(2,0,0),(byte)2);
         d.getAutresLangues().add("français");
         d.getAutresLangues().add("italien");
         d.getSousTitres().add("néerlandais");
@@ -45,7 +47,7 @@ public class Gestion {
         a.addOuvrage(d);
 
 
-        CD c = new CD("The Compil 2023",0,LocalDate.of(2023,1,1),2,"English","POP",1245,(byte)20,"100 min");
+        CD c = new CD("The Compil 2023",0,LocalDate.of(2023,1,1),2,"English","POP",1245,(byte)20,LocalTime.of(1,40,0));
         louv.add(c);
 
         Rayon r = new Rayon("r12","aventure");
@@ -81,18 +83,9 @@ public class Gestion {
 
     private void menu() {
         List options = new ArrayList<>(Arrays.asList("auteurs","ouvrages","exemplaires","rayons","lecteurs","locations","fin"));
+      do{
+        int choix = Utilitaire.choixListe(options);
 
-        do{
-            for(int i=0;i<options.size();i++){
-                System.out.println((i+1)+"."+options.get(i));
-            }
-           
-            int choix;
-          do {
-              System.out.println("choix :");
-              choix = sc.nextInt();
-              sc.skip("\n");
-          } while(choix <1 || choix > options.size());
             switch (choix){
                 case 1 :gestAuteurs(); break;
                 case 2 : gestOuvrages();break;
@@ -106,8 +99,16 @@ public class Gestion {
     }
 
     private void gestLocations() {
-//TODO lister exemplaires,lister lecteurs,créer la location avec le constructeur à deux paramètres(loueur,exemplaire)
-
+        int choix;
+        choix = Utilitaire.choixListe(lex);
+        if(lex.get(choix).enLocation()){
+            System.out.println("exemplaire en location");
+            return;
+        }
+        Exemplaire ex = lex.get(choix-1);
+        choix=Utilitaire.choixListe(llect);
+        Lecteur lec = llect.get(choix-1);
+        lloc.add(new Location(lec,ex));
     }
 
     private void gestLecteurs() {
@@ -133,6 +134,7 @@ public class Gestion {
         Lecteur lect = new Lecteur(num,nom,prenom,dn,adr,mail,tel);
         llect.add(lect);
         System.out.println("lecteur créé");
+
     }
 
     private void gestRayons() {
@@ -142,6 +144,7 @@ public class Gestion {
         String genre=sc.next();
         Rayon r = new Rayon(code,genre);
         System.out.println("rayon créé");
+        //TODO attribuer livres
     }
 
     private void gestExemplaires() {
@@ -150,18 +153,11 @@ public class Gestion {
         System.out.println("etat  ");
         String etat=sc.next();
         System.out.println("ouvrage ");
-        for(int i=0;i<louv.size();i++){
-            System.out.println((i+1+"."+louv.get(i)));
-        }
-        int choix;
-        do {
-            System.out.println("choix :");
-            choix = sc.nextInt();
-            sc.skip("\n");
-        } while(choix <1 || choix > louv.size());
+        int choix = Utilitaire.choixListe(louv);
         Exemplaire ex = new Exemplaire(mat,etat,louv.get(choix-1));
         lex.add(ex);
         System.out.println("exemplaire créé");
+        //TODO attribuer rayon
     }
 
     private void gestOuvrages() {
@@ -172,11 +168,8 @@ public class Gestion {
         int ageMin= sc.nextInt();
         sc.skip("\n");
         System.out.println("date de parution");
-        String[] jma = sc.nextLine().split(" ");
-        int j = Integer.parseInt(jma[0]);
-        int m = Integer.parseInt(jma[1]);
-        int a = Integer.parseInt(jma[2]);
-        LocalDate dp= LocalDate.of(a,m,j);
+
+        LocalDate dp= Utilitaire.lecDate();
         System.out.println("prix de location");
         double ploc = sc.nextDouble();
         sc.skip("\n");
@@ -184,38 +177,56 @@ public class Gestion {
         String langue=sc.nextLine();
         System.out.println("genre");
         String genre=sc.nextLine();
-        TypeOuvrage[] to = TypeOuvrage.values();
-
-            for(int i =0;i<to.length;i++){
-                System.out.println((i+1)+"."+to[i]);
-            }
-
-            int choix;
-            do {
-                System.out.println("choix :");
-                choix = sc.nextInt();
-                sc.skip("\n");
-            } while(choix <1 || choix > to.length);
-            switch (choix){
+        TypeOuvrage[] tto = TypeOuvrage.values();
+        List<TypeOuvrage> lto = new ArrayList<>(Arrays.asList(tto));
+        int choix = Utilitaire.choixListe(lto);
+        switch (choix){
                 case 1 :
                            System.out.println("isbn ");
                            String isbn = sc.next();
                            System.out.println("pages ");
                            int nbrePages = sc.nextInt();
                            sc.skip("\n");
-                           TypeLivre tl= TypeLivre.ROMAN; //TODO lire le type de livre
-                           String resume = "résumé du livre"; //TODO lire le résumé
+                           TypeLivre[] ttl = TypeLivre.values();
+                           List<TypeLivre> ltl = new ArrayList<>(Arrays.asList(ttl));
+                            choix = Utilitaire.choixListe(ltl);
+                            TypeLivre tl = ttl[choix-1];
+                           System.out.println("résumé du livre :");
+                           String resume = sc.nextLine();
                            o=new Livre(titre,ageMin,dp,ploc,langue,genre,isbn,nbrePages,tl,resume);
                            ;break;
-                case 2 :     //TODO gérer création DVD
-
+                case 2 :
+                            System.out.println("code : ");
+                            long code= sc.nextLong();
+                            System.out.println("nombre de pages :");
+                            byte nbrePlages= sc.nextByte();
+                            LocalTime dureeTotale = Utilitaire.lecTime();
+                            o=new CD(titre,ageMin,dp,ploc,langue,genre,code,nbrePlages,dureeTotale);
                             ;break;
-                case 3 :   //TODO gérer création CD
-
-                             ;break;
+                case 3 :
+                            System.out.println("code : ");
+                            code= sc.nextLong();
+                            dureeTotale=Utilitaire.lecTime();
+                            byte nbreBonus= sc.nextByte();
+                            o=new DVD(titre,ageMin,dp,ploc,langue,genre,code,dureeTotale,nbreBonus);
+                            System.out.println("autres langues");
+                            List<String> langues = new ArrayList<>(Arrays.asList("anglais","français","italien","allemand","fin"));
+                            do{
+                                choix=Utilitaire.choixListe(langues);
+                                if(choix==langues.size())break;
+                                ((DVD)o).getAutresLangues().add(langues.get(choix-1));//TODO vérifier unicité ou utiliser set et pas de doublon avec langue d'origine
+                            }while(true);
+                           System.out.println("sous-titres");
+                            do{
+                             choix=Utilitaire.choixListe(langues);
+                             if(choix==langues.size())break;
+                             ((DVD)o).getSousTitres().add(langues.get(choix-1));//TODO vérifier unicité ou utiliser set
+                             }while(true);
+                            ;break;
             }
            louv.add(o);
         System.out.println("ouvrage créé");
+        //TODO attribuer auteurs
     }
 
        private void gestAuteurs() {
@@ -228,6 +239,7 @@ public class Gestion {
         Auteur a  = new Auteur(nom,prenom,nat);
         laut.add(a);
         System.out.println("écrivain créé");
+        //TODO attribuer ouvrages
     }
 
     public static void main(String[] args) {
