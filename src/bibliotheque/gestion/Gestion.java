@@ -107,7 +107,7 @@ public class Gestion {
         int choix;
         //TODO ne lister que les exemplaires libres et les trier par matricule
         choix = Utilitaire.choixListe(lex);
-        if(lex.get(choix).enLocation()){
+        if(lex.get(choix-1).enLocation()){
             System.out.println("exemplaire en location");
             return;
         }
@@ -206,7 +206,8 @@ public class Gestion {
                             System.out.println("code : ");
                             long code= sc.nextLong();
                             System.out.println("nombre de plages :");
-                            byte nbrePlages= sc.nextByte();
+                            byte nbrePlages= sc.nextByte();sc.skip("\n");
+                            System.out.println("durée en H M S : ");
                             LocalTime dureeTotale = Utilitaire.lecTime();
                             o=new CD(titre,ageMin,dp,ploc,langue,genre,code,nbrePlages,dureeTotale);
                             ;break;
