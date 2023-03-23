@@ -30,7 +30,7 @@ public class LecteurPresenter {
         Lecteur lec = model.addLecteur(lecteur);
         if(lec!=null) view.affMsg("création de :"+lec);
         else view.affMsg("erreur de création");
-        List<Lecteur> lecteurs = model.getLecteurs();
+       // List<Lecteur> lecteurs = model.getLecteurs();
        // view.setListDatas(lecteurs); //désactivé pour éviter appels imbriqués
     }
 
@@ -39,7 +39,7 @@ public class LecteurPresenter {
         boolean ok = model.removeLecteur(lecteur);
         if(ok) view.affMsg("lecteur effacé");
         else view.affMsg("lecteur non effacé");
-        List<Lecteur> lecteurs = model.getLecteurs();
+        //List<Lecteur> lecteurs = model.getLecteurs();
         //view.setListDatas(lecteurs); //désactivé pour éviter appels imbriqués
     }
     public void update(Lecteur lecteur) {

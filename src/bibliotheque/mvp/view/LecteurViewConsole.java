@@ -41,7 +41,7 @@ public class LecteurViewConsole implements LecteurViewInterface {
 
     @Override
     public void affList(List<Exemplaire> lex) {
-        affListe(lex);
+       affListe(lex);
     }
 
     public void menu() {
@@ -81,7 +81,7 @@ public class LecteurViewConsole implements LecteurViewInterface {
         int choix = choixElt(llec);
         Lecteur l = llec.get(choix-1);
         String nom = modifyIfNotBlank("nom",l.getNom());
-        String prenom = modifyIfNotBlank("nom",l.getNom());
+        String prenom = modifyIfNotBlank("prénom",l.getPrenom());
         String date = modifyIfNotBlank("date de naissance",getDateFrench(l.getDn()));
         String[] jma = date.split(" ");
         int j = Integer.parseInt(jma[0]);
@@ -141,7 +141,7 @@ public class LecteurViewConsole implements LecteurViewInterface {
                         presenter.exemplairesEnLocation(lec);
                         break;
                     case 2:
-                        presenter.exemplairesEnLocation(lec);
+                        presenter.exemplairesLoues(lec);
                         break;
                     case 3: return;
                     default:
