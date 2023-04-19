@@ -1,12 +1,15 @@
 package bibliotheque.metier;
 
+import bibliotheque.utilitaires.Identifiable;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import static bibliotheque.metier.TypeOuvrage.*;
 
 
-public class Auteur {
+public class Auteur  {
+
     private  String nom,prenom;
     private String nationalite;
     private List<Ouvrage> louvrage = new ArrayList<>();
@@ -112,4 +115,5 @@ public class Auteur {
         }
         return lot;
     }
+
 }

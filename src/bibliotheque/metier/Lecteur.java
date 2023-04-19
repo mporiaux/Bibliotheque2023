@@ -1,9 +1,11 @@
 package bibliotheque.metier;
 
+import bibliotheque.utilitaires.Identifiable;
+
 import java.time.LocalDate;
 import java.util.*;
 
-public class Lecteur {
+public class Lecteur   {
     private int numlecteur;
     private  String nom,prenom;
     private LocalDate dn;
@@ -128,4 +130,5 @@ public class Lecteur {
         }
        return stex;
     }
+
 }

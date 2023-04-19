@@ -1,5 +1,7 @@
 package bibliotheque.metier;
 
+import bibliotheque.utilitaires.Identifiable;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -145,4 +147,5 @@ public abstract class Ouvrage {
         }
         return lex2;
     }
+
 }

@@ -1,13 +1,17 @@
 package bibliotheque.metier;
 
+import bibliotheque.utilitaires.Identifiable;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class Rayon {
+public class Rayon  {
     private String codeRayon;
     private String genre;
     private List<Exemplaire> lex = new ArrayList<>();
+
+
 
     public Rayon(String codeRayon, String genre) {
         this.codeRayon = codeRayon;

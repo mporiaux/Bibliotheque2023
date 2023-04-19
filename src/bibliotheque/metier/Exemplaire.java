@@ -1,12 +1,14 @@
 package bibliotheque.metier;
 
+import bibliotheque.utilitaires.Identifiable;
+
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class Exemplaire {
+public class Exemplaire  {
 
     private String matricule;
     private String descriptionEtat;
@@ -15,6 +17,7 @@ public class Exemplaire {
     private Rayon rayon;
 
     private String etat;
+
 
 
     private List<Location> lloc= new ArrayList<>();

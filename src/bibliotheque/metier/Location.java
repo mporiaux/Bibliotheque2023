@@ -1,5 +1,7 @@
 package bibliotheque.metier;
 
+import bibliotheque.utilitaires.Identifiable;
+
 import java.time.LocalDate;
 import java.time.Period;
 import java.time.temporal.ChronoUnit;
@@ -10,6 +12,8 @@ public class Location {
     private LocalDate dateRestitution;
     private Lecteur loueur;
     private Exemplaire exemplaire;
+
+
 
     public Location(LocalDate dateLocation, LocalDate dateRestitution, Lecteur loueur, Exemplaire exemplaire) {
         this.dateLocation = dateLocation;
@@ -95,4 +99,6 @@ public class Location {
     public void enregistrerRetour(){
        if(dateRestitution==null) dateRestitution=LocalDate.now();//test sur nul pour éviter d'enregistrer retour 2 fois
     }
+
+
 }
