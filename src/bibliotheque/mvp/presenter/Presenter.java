@@ -50,4 +50,7 @@ public abstract class Presenter<T> {
         else view.affMsg(elt.toString());
     }
 
+    public T selection(){
+       return  view.selectionner(model.getAll());
+    }
 }

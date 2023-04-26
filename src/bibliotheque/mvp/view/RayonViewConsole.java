@@ -1,19 +1,17 @@
 package bibliotheque.mvp.view;
 
-import bibliotheque.metier.Lecteur;
 import bibliotheque.metier.Rayon;
 
-import java.time.LocalDate;
 
 import static bibliotheque.utilitaires.Utilitaire.*;
 
 public class RayonViewConsole extends AbstractViewConsole{
     @Override
     protected void rechercher() {
-        System.out.println("code du rayon : ");
-       String code = sc.nextLine();
-       Rayon rech = new Rayon(code,null);
-        presenter.search(rech);
+      System.out.println("code du rayon : ");
+      String code = sc.nextLine();
+      Rayon rech = new Rayon(code);
+      presenter.search(rech);
     }
 
     @Override
@@ -23,11 +21,20 @@ public class RayonViewConsole extends AbstractViewConsole{
 
     @Override
     protected void ajouter() {
-        System.out.println("code rayon ");
-        String code = sc.nextLine();
-        System.out.println("genre ");
-        String genre = sc.nextLine();
-        Rayon r = new Rayon(code,genre);
+        Rayon r =null;
+        do {
+          try {
+              System.out.println("code rayon ");
+              String code = sc.nextLine();
+              System.out.println("genre ");
+              String genre = sc.nextLine();
+              r = new Rayon(code, genre);
+              break;
+          }
+          catch (Exception e){
+              System.out.println("une erreur est survenue : "+e);
+          }
+        }while(true);
         presenter.add(r);
         ldatas=presenter.getAll();//rafraichissement
         affListe(ldatas);

@@ -23,7 +23,8 @@ public class Exemplaire  {
     private List<Location> lloc= new ArrayList<>();
 
 
-    public Exemplaire(String matricule, String descriptionEtat,Ouvrage ouvrage){
+    public Exemplaire(String matricule, String descriptionEtat,Ouvrage ouvrage) throws Exception {
+        if(ouvrage==null) throw new Exception("ouvrage invalide");
         this.matricule = matricule;
         this.descriptionEtat=descriptionEtat;
         this.ouvrage = ouvrage;

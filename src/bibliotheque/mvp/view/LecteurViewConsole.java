@@ -17,8 +17,13 @@ public class LecteurViewConsole extends AbstractViewConsole<Lecteur> {
   protected  void rechercher() {
         System.out.println("numLecteur : ");
         int idLecteur = sc.nextInt();
-        Lecteur rech = new Lecteur(idLecteur,null,null,null,null,null,null);
-        presenter.search(rech);
+      Lecteur rech = null;
+      try {
+          rech = new Lecteur(idLecteur,"zzz","zzz",null,null,null,null);
+      } catch (Exception e) {
+          throw new RuntimeException(e);
+      }
+      presenter.search(rech);
     }
 
    protected  void modifier() {
@@ -35,8 +40,13 @@ public class LecteurViewConsole extends AbstractViewConsole<Lecteur> {
         String adr = modifyIfNotBlank("adresse",l.getAdresse());
         String mail= modifyIfNotBlank("mail",l.getMail());
         String tel =modifyIfNotBlank("tel",l.getTel());
-        Lecteur lec = new Lecteur(l.getNumlecteur(), nom, prenom, dn, adr, mail, tel);
-        presenter.update(lec);
+       Lecteur lec = null;
+       try {
+           lec = new Lecteur(l.getNumlecteur(), nom, prenom, dn, adr, mail, tel);
+       } catch (Exception e) {
+           System.out.println("erreur :"+e);
+       }
+       presenter.update(lec);
         ldatas=presenter.getAll();//rafraichissement
         affListe(ldatas);
     }
@@ -67,7 +77,12 @@ public class LecteurViewConsole extends AbstractViewConsole<Lecteur> {
         String mail = sc.nextLine();
         System.out.println("tel ");
         String tel = sc.nextLine();
-        Lecteur lec = new Lecteur(0, nom, prenom, dn, adr, mail, tel);
+        Lecteur lec = null;
+        try {
+            lec = new Lecteur(0, nom, prenom, dn, adr, mail, tel);
+        } catch (Exception e) {
+            System.out.println("erreur : "+e);
+        }
         presenter.add(lec);
         ldatas=presenter.getAll();//rafraichissement
         affListe(ldatas);
@@ -78,7 +93,7 @@ public class LecteurViewConsole extends AbstractViewConsole<Lecteur> {
             do {
                 System.out.println("1.Exemplaire en location\n2.Exemplaires loués\n3.menu principal");
                 System.out.println("choix : ");
-                int ch = sc.nextInt();
+                int ch = lireInt();
                 sc.skip("\n");
                 switch (ch) {
                     case 1:

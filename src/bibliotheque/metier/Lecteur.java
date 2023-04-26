@@ -15,7 +15,8 @@ public class Lecteur   {
 
     private List<Location> lloc=new ArrayList<>();
 
-    public Lecteur(int numlecteur, String nom, String prenom, LocalDate dn, String adresse, String mail, String tel) {
+    public Lecteur(int numlecteur, String nom, String prenom, LocalDate dn, String adresse, String mail, String tel) throws Exception {
+if(nom==null || prenom==null ||nom.trim().equals("")||prenom.trim().equals("")) throw new Exception("informations invalides");
         this.numlecteur = numlecteur;
         this.nom = nom;
         this.prenom = prenom;
