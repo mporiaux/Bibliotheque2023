@@ -1,7 +1,5 @@
 package bibliotheque.mvp.model;
 
-import bibliotheque.utilitaires.Identifiable;
-
 import java.util.ArrayList;
 import java.util.List;
 

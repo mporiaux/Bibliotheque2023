@@ -62,6 +62,14 @@
             locm = new LocationModel();
             locv = new LocationViewConsole();
             locp = new LocationPresenter(locm,locv);//création et injection de dépendance
+
+            ((LocationPresenter)locp).setExemplairePresenter(ep);
+            ((LocationPresenter)locp).setLecteurPresenter(lp);
+
+            ((OuvragePresenter)op).setAuteurPresenter(ap);
+
+            ((ExemplairePresenter)ep).setOuvragePresenter(op);
+            ((ExemplairePresenter)ep).setRayonPresenter(rp);
     try {
         populate();
     }

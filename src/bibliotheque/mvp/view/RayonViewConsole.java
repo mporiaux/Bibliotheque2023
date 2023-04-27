@@ -1,11 +1,18 @@
 package bibliotheque.mvp.view;
 
+import bibliotheque.metier.Ouvrage;
 import bibliotheque.metier.Rayon;
+import bibliotheque.mvp.presenter.OuvragePresenter;
+import bibliotheque.mvp.presenter.RayonPresenter;
 
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import static bibliotheque.utilitaires.Utilitaire.*;
 
-public class RayonViewConsole extends AbstractViewConsole{
+public class RayonViewConsole extends AbstractViewConsole<Rayon>{
     @Override
     protected void rechercher() {
       System.out.println("code du rayon : ");
@@ -16,7 +23,20 @@ public class RayonViewConsole extends AbstractViewConsole{
 
     @Override
     protected void modifier() {
-
+        int choix = choixElt(ldatas);
+       Rayon r= ldatas.get(choix-1);
+        do {
+            try {
+                String genre = modifyIfNotBlank("nom", r.getGenre());
+                r.setGenre(genre);
+                break;
+            } catch (Exception e) {
+                System.out.println("erreur :" + e);
+            }
+        }while(true);
+        presenter.update(r);
+        ldatas=presenter.getAll();//rafraichissement
+        affListe(ldatas);
     }
 
     @Override
@@ -29,19 +49,36 @@ public class RayonViewConsole extends AbstractViewConsole{
               System.out.println("genre ");
               String genre = sc.nextLine();
               r = new Rayon(code, genre);
+              presenter.add(r);
+              ldatas=presenter.getAll();//rafraichissement
+              affListe(ldatas);
               break;
           }
           catch (Exception e){
               System.out.println("une erreur est survenue : "+e);
           }
         }while(true);
-        presenter.add(r);
-        ldatas=presenter.getAll();//rafraichissement
-        affListe(ldatas);
+
     }
 
     @Override
     protected void special() {
+        int choix =  choixElt(ldatas);
+        Rayon r  = ldatas.get(choix-1);
+
+        List options = new ArrayList<>(Arrays.asList("lister exemplaires","fin"));
+        do {
+            int ch = choixListe(options);
+
+            switch (ch) {
+
+                case 1:
+                    ((RayonPresenter)presenter).listerExemplaires(r);
+                    break;
+               case 2 :return;
+            }
+        } while (true);
+
 
     }
 }

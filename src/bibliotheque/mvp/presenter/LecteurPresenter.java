@@ -3,9 +3,7 @@ package bibliotheque.mvp.presenter;
 import bibliotheque.metier.Exemplaire;
 import bibliotheque.metier.Lecteur;
 import bibliotheque.mvp.model.DAO;
-import bibliotheque.mvp.model.DAOLecteur;
 import bibliotheque.mvp.model.SpecialLecteur;
-import bibliotheque.mvp.view.LecteurViewInterface;
 import bibliotheque.mvp.view.ViewInterface;
 
 import java.util.List;
