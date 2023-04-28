@@ -4,6 +4,7 @@ import bibliotheque.metier.*;
 import bibliotheque.mvp.presenter.LecteurPresenter;
 import bibliotheque.mvp.presenter.LocationPresenter;
 import bibliotheque.mvp.presenter.RayonPresenter;
+import bibliotheque.mvp.presenter.SpecialLocationPresenter;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -12,7 +13,7 @@ import java.util.List;
 import static bibliotheque.utilitaires.Utilitaire.*;
 import static bibliotheque.utilitaires.Utilitaire.modifyIfNotBlank;
 
-public class LocationViewConsole extends AbstractViewConsole<Location> {
+public class LocationViewConsole extends AbstractViewConsole<Location> implements SpecialLocationViewConsole {
     @Override
     protected void rechercher() {
 
@@ -55,14 +56,24 @@ public class LocationViewConsole extends AbstractViewConsole<Location> {
             switch (ch) {
 
                 case 1:
-                    ((LocationPresenter)presenter).calculerAmende(l);
+                    amende(l);
                     break;
                 case 2:
-                    ((LocationPresenter)presenter).enregistrerRetour(l);
+                    retour(l);
                     break;
                 case 3 :return;
             }
         } while (true);
 
+    }
+
+    @Override
+    public void retour(Location l) {
+        ((SpecialLocationPresenter)presenter).enregistrerRetour(l);
+    }
+
+    @Override
+    public void amende(Location l) {
+        ((SpecialLocationPresenter)presenter).calculerAmende(l);
     }
 }

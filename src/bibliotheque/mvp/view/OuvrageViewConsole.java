@@ -3,6 +3,7 @@ package bibliotheque.mvp.view;
 import bibliotheque.metier.*;
 import bibliotheque.mvp.presenter.AuteurPresenter;
 import bibliotheque.mvp.presenter.OuvragePresenter;
+import bibliotheque.mvp.presenter.SpecialOuvragePresenter;
 import bibliotheque.utilitaires.*;
 
 import java.util.ArrayList;
@@ -12,7 +13,7 @@ import java.util.List;
 import static bibliotheque.utilitaires.Utilitaire.*;
 import static bibliotheque.utilitaires.Utilitaire.modifyIfNotBlank;
 
-public class OuvrageViewConsole extends AbstractViewConsole<Ouvrage> {
+public class OuvrageViewConsole extends AbstractViewConsole<Ouvrage> implements SpecialOuvrageViewConsole {
     @Override
     protected void rechercher() {
       //TODO rechercher ouvrage
@@ -62,13 +63,13 @@ public class OuvrageViewConsole extends AbstractViewConsole<Ouvrage> {
             switch (ch) {
 
                 case 1:
-                    ((OuvragePresenter)presenter).listerExemplaire(o);
+                    exemplaires(o);
                     break;
                 case 2:
-                    ((OuvragePresenter)presenter).listerExemplaire(o,true);
+                    enLocation(o, true);
                     break;
                 case 3:
-                    ((OuvragePresenter)presenter).listerExemplaire(o,false);
+                    enLocation(o, false);
                     break;
 
                 case 4 :return;
@@ -78,5 +79,15 @@ public class OuvrageViewConsole extends AbstractViewConsole<Ouvrage> {
 
 
 
+    }
+
+    @Override
+    public void enLocation(Ouvrage o, boolean enLocation) {
+        ((SpecialOuvragePresenter) presenter).listerExemplaire(o, enLocation);
+    }
+
+    @Override
+    public void exemplaires(Ouvrage o) {
+        ((SpecialOuvragePresenter)presenter).listerExemplaire(o);
     }
 }

@@ -8,13 +8,15 @@ import bibliotheque.mvp.model.SpecialOuvrage;
 import bibliotheque.mvp.view.ViewInterface;
 
 
-public class OuvragePresenter extends Presenter<Ouvrage> {
+public class OuvragePresenter extends Presenter<Ouvrage> implements SpecialOuvragePresenter{
 
     private Presenter<Auteur> auteurPresenter;
+    @Override
     public void setAuteurPresenter(Presenter<Auteur> auteurPresenter) {
         this.auteurPresenter = auteurPresenter;
     }
 
+    @Override
     public Auteur choixAuteur(){
        return  auteurPresenter.selection();
     }
@@ -23,10 +25,12 @@ public class OuvragePresenter extends Presenter<Ouvrage> {
         super(model,view);
     }
 
+    @Override
     public void  listerExemplaire(Ouvrage o){
         view.affList(((SpecialOuvrage)model).listerExemplaire(o));
     }
-    public void listerExemplaire(Ouvrage o,boolean enLocation){
+    @Override
+    public void listerExemplaire(Ouvrage o, boolean enLocation){
         view.affList(((SpecialOuvrage)model).listerExemplaire(o,enLocation));
     }
 }

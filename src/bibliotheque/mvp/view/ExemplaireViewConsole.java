@@ -4,6 +4,7 @@ import bibliotheque.metier.*;
 import bibliotheque.mvp.model.SpecialExemplaire;
 import bibliotheque.mvp.presenter.AuteurPresenter;
 import bibliotheque.mvp.presenter.ExemplairePresenter;
+import bibliotheque.mvp.presenter.SpecialExemplairePresenter;
 import bibliotheque.utilitaires.Utilitaire;
 
 import java.util.ArrayList;
@@ -13,7 +14,7 @@ import java.util.List;
 import static bibliotheque.utilitaires.Utilitaire.*;
 import static bibliotheque.utilitaires.Utilitaire.modifyIfNotBlank;
 
-public class ExemplaireViewConsole extends AbstractViewConsole<Exemplaire> {
+public class ExemplaireViewConsole extends AbstractViewConsole<Exemplaire> implements SpecialExemplaireViewConsole {
     @Override
     protected void rechercher() {
         try{
@@ -84,43 +85,83 @@ public class ExemplaireViewConsole extends AbstractViewConsole<Exemplaire> {
 
             switch (ch) {
                 case 1:
-                    System.out.println("nouvel état :");
-                    String etat = sc.nextLine();
-                    ((ExemplairePresenter)presenter).modifierEtat(ex,etat) ;
+                    changeEtat(ex);
                     break;
 
                 case 2 :
 
-                    ((ExemplairePresenter)presenter).LecteurActuel(ex);
+                    lecteurActuel(ex);
                     break;
 
                 case 3 :
-                    ((ExemplairePresenter)presenter).lecteurs(ex);
-                     break;
+                    lecteurs(ex);
+                    break;
 
                 case 4 :
-                    ((ExemplairePresenter)presenter).envoiMailLecteurActuel(ex);
+                    mailLecteurActuel(ex);
                     break;
 
                 case 5:
-                    ((ExemplairePresenter)presenter).envoiMailLecteurs(ex);
+                    mailLecteurs(ex);
                     break;
 
                 case 6 :
-                    ((ExemplairePresenter)presenter).enRetard(ex);
+                    enRetard(ex);
                     break;
 
                 case 7 :
-                    ((ExemplairePresenter)presenter).joursRetard(ex);
+                    joursRetard(ex);
                     break;
 
                 case 8 :
-                    ((ExemplairePresenter)presenter).enLocation(ex);
+                    enLocation(ex);
                     break;
 
                 case 9 : return;
                 }
         } while (true);
 
+    }
+
+   @Override
+   public void enLocation(Exemplaire ex) {
+        ((SpecialExemplairePresenter)presenter).enLocation(ex);
+    }
+
+    @Override
+    public void joursRetard(Exemplaire ex) {
+        ((SpecialExemplairePresenter)presenter).joursRetard(ex);
+    }
+
+    @Override
+    public void enRetard(Exemplaire ex) {
+        ((SpecialExemplairePresenter)presenter).enRetard(ex);
+    }
+
+   @Override
+   public void mailLecteurs(Exemplaire ex) {
+        ((SpecialExemplairePresenter)presenter).envoiMailLecteurs(ex);
+    }
+
+    @Override
+    public void mailLecteurActuel(Exemplaire ex) {
+        ((SpecialExemplairePresenter)presenter).envoiMailLecteurActuel(ex);
+    }
+
+   @Override
+   public void lecteurs(Exemplaire ex) {
+        ((SpecialExemplairePresenter)presenter).lecteurs(ex);
+    }
+
+    @Override
+    public void lecteurActuel(Exemplaire ex) {
+        ((SpecialExemplairePresenter)presenter).LecteurActuel(ex);
+    }
+
+   @Override
+   public void changeEtat(Exemplaire ex) {
+        System.out.println("nouvel état :");
+        String etat = sc.nextLine();
+        ((ExemplairePresenter)presenter).modifierEtat(ex,etat) ;
     }
 }

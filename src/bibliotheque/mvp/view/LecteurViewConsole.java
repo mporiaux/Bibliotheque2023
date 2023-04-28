@@ -5,13 +5,15 @@ import bibliotheque.metier.Lecteur;
 
 
 import bibliotheque.mvp.presenter.LecteurPresenter;
+import bibliotheque.mvp.presenter.SpecialLecteurPresenter;
+
 import static bibliotheque.utilitaires.Utilitaire.*;
 
 import java.time.LocalDate;
 
 
 
-public class LecteurViewConsole extends AbstractViewConsole<Lecteur> {
+public class LecteurViewConsole extends AbstractViewConsole<Lecteur> implements SpecialLecteurViewConsole {
 
 
   protected  void rechercher() {
@@ -107,10 +109,10 @@ public class LecteurViewConsole extends AbstractViewConsole<Lecteur> {
                 int ch = lireInt();
                  switch (ch) {
                     case 1:
-                        ((LecteurPresenter)presenter).exemplairesEnLocation(lec);
+                        exemplairesLocation(lec);
                         break;
                     case 2:
-                        ((LecteurPresenter)presenter).exemplairesLoues(lec);
+                        exemplairesLoues(lec);
                         break;
                     case 3: return;
                     default:
@@ -120,6 +122,16 @@ public class LecteurViewConsole extends AbstractViewConsole<Lecteur> {
 
 
         }
+
+    @Override
+    public void exemplairesLoues(Lecteur lec) {
+        ((SpecialLecteurPresenter)presenter).exemplairesLoues(lec);
     }
+
+    @Override
+    public void exemplairesLocation(Lecteur lec) {
+        ((SpecialLecteurPresenter)presenter).exemplairesEnLocation(lec);
+    }
+}
 
 
