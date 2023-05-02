@@ -4,15 +4,27 @@ import bibliotheque.metier.*;
 import bibliotheque.mvp.presenter.AuteurPresenter;
 import bibliotheque.mvp.presenter.LecteurPresenter;
 import bibliotheque.mvp.presenter.SpecialAuteurPresenter;
+import bibliotheque.utilitaires.comparators.AuteurComparator;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 
 import static bibliotheque.utilitaires.Utilitaire.*;
 
 
 public class AuteurViewConsole extends AbstractViewConsole<Auteur> implements SpecialAuteurViewConsole {
+
+    @Override
+    public void setListDatas(List<Auteur> ldatas){
+      Comparator<Auteur> cmp = new AuteurComparator();
+      ldatas.sort(cmp);
+      super.setListDatas(ldatas);
+  }
+
+
+
     @Override
     protected void rechercher() {
         try {
