@@ -28,4 +28,11 @@ public class LecteurPresenter extends Presenter<Lecteur> implements SpecialLecte
         if(lex==null || lex.isEmpty()) view.affMsg("aucun exemplaire trouvé");
         else view.affList(lex);
     }
+
+    @Override
+    public void lecParMail(String mail) {
+        Lecteur l = ((SpecialLecteur)model).lecParMail(mail);
+        if(l==null) view.affMsg("aucun lecteur pour ce mail");
+        else view.affMsg("lecteur trouvé :" +l);
+    }
 }
