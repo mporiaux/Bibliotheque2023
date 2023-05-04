@@ -140,6 +140,7 @@ public class LecteurViewConsole extends AbstractViewConsole<Lecteur> implements 
 
     @Override
     public void lecParMail() {
+      //ajout pour forcer push
         System.out.print("mail recherché : ");
         String mail= sc.next();
         ((SpecialLecteurPresenter)presenter).lecParMail(mail);
