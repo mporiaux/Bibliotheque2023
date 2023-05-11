@@ -76,16 +76,21 @@ public class Utilitaire {
 
     public static LocalDate lecDate(){
         do {
-            String[] jma = sc.nextLine().split(" ");
+            String dateLue= sc.nextLine();
             try {
-                int j = Integer.parseInt(jma[0]);
-                int m = Integer.parseInt(jma[1]);
-                int a = Integer.parseInt(jma[2]);
-                return LocalDate.of(a, m, j);
+               return getDate(dateLue);
             } catch (Exception e) {
                 System.out.println("date incorrecte");
             }
         }while (true);
+    }
+
+    public static LocalDate getDate(String dateLue) {
+        String[] jma = dateLue.split(" ");
+        int j = Integer.parseInt(jma[0]);
+        int m = Integer.parseInt(jma[1]);
+        int a = Integer.parseInt(jma[2]);
+        return LocalDate.of(a, m, j);
     }
 
     public static LocalTime lecTime(){

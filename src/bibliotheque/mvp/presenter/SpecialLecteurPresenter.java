@@ -8,4 +8,6 @@ public interface SpecialLecteurPresenter {
     void exemplairesLoues(Lecteur l);
 
     void lecParMail(String mail);
+
+     void chargementLecteurParFichier();
 }

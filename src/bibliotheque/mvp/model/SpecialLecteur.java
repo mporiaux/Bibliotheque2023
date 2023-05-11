@@ -11,4 +11,5 @@ public interface SpecialLecteur {
 
     public Lecteur lecParMail(String mail);
 
+    public void chargementParFichier();
 }

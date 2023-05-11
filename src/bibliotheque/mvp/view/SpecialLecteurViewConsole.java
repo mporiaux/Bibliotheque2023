@@ -8,4 +8,6 @@ public interface SpecialLecteurViewConsole {
     void exemplairesLocation(Lecteur lec);
 
     void lecParMail();
+
+    void chargmementLecteurParFichier();
 }

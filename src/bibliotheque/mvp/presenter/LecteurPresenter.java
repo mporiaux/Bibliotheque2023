@@ -36,4 +36,10 @@ public class LecteurPresenter extends Presenter<Lecteur> implements SpecialLecte
         if(l==null) view.affMsg("aucun lecteur pour ce mail");
         else view.affMsg("lecteur trouvé :" +l);
     }
+
+    @Override
+    public void chargementLecteurParFichier() {
+        ((SpecialLecteur)model).chargementParFichier();
+        view.affMsg("chargement des lecteurs terminé");
+    }
 }

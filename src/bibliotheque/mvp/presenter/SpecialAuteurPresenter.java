@@ -9,4 +9,6 @@ public interface SpecialAuteurPresenter {
     void listerLivre(Auteur a, TypeLivre tl);
 
     void listerOuvrages(Auteur a, String genre);
+
+
 }
