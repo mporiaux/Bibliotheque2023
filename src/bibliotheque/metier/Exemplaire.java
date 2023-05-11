@@ -113,23 +113,21 @@ public class Exemplaire  {
             if(ll.contains(l.getLoueur())) continue; //par la suite utiliser set
             ll.add(l.getLoueur());
         }
-        return null;
+        return ll;
     }
 
     public void envoiMailLecteurActuel(Mail mail){
-        if(lecteurActuel()!=null) System.out.println("envoi de "+mail+ " à "+lecteurActuel().getMail());
-        else System.out.println("aucune location en cours");
+        if(lecteurActuel()!=null)
+        {
+            mail.envoi(lecteurActuel().getMail()+".txt");
+        }
     }
     public void envoiMailLecteurs(Mail mail){
         List<Lecteur>ll=lecteurs();
-        if(ll.isEmpty()){
-            System.out.println("aucun lecteur enregistré");
-        }
-        else{
-            for(Lecteur l: ll){
-                System.out.println("envoi de "+mail+ " à "+l.getMail());
+        for(Lecteur l: ll){
+              mail.envoi(l.getMail()+".txt");
             }
-        }
+
     }
 
     public boolean enRetard(){ //par retard on entend pas encore restitué et en retard
